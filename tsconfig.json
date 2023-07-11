@@ -1,10 +1,29 @@
 {
   "compilerOptions": {
     "target": "es2016",
-    "module": "commonjs",
+    "module": "NodeNext",
+    "moduleResolution": "node",
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "strict": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "baseUrl": "./src",
+    "paths": {
+      "@controllers/*": ["controllers/*"],
+      "@interfaces/*": ["interfaces/*"],
+      "@middleware/*": ["middleware/*"],
+      "@models/*": ["models/*"],
+      "@routes/*": ["routes/*"],
+      "@services/*": ["services/*"],
+      "@shared/*": ["shared/*"],
+      "@strategies/*": ["strategies/*"],
+
+    }
+  },
+  "include": [
+    "src/**/*"
+  ],
+  "ts-node": {
+    "require": ["tsconfig-paths/register"]
   }
 }

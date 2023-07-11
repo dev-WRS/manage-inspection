@@ -1,5 +1,8 @@
 import passport from "passport";
-import { Strategy as GoogleStrategy, Profile, VerifyCallback, _StrategyOptionsBase } from "passport-google-oauth20";
+import { Strategy, Profile, VerifyCallback,
+        _StrategyOptionsBase } from "passport-google-oauth20";
+
+import { successLogin } from "@services/authentication.service";
 
 const options: _StrategyOptionsBase = {
     clientID: process.env.GOOGLE_ID || '',
@@ -8,15 +11,15 @@ const options: _StrategyOptionsBase = {
     scope:['email', 'profile']
 }
 passport.use(
-    new GoogleStrategy(options,
+    new Strategy(options,
         async (
             accessToken: string,
             refreshToken: string,
             profile: Profile,
             done: VerifyCallback
         ) => {
-            console.log(`profile-: ${profile}`);
-            console.log(`accessToken-: ${accessToken}`);
+            successLogin(profile, accessToken);
+
             return done(null, profile);
         }
     )

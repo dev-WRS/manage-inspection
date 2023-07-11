@@ -1,8 +1,8 @@
-import { Router, Request, Response } from 'express';
+import { Router } from 'express';
 import passport from 'passport';
 
-import isLoggedIn from '../middleware/authentication.middleware';
-import authenticationController from '../controller/authentication.controller';
+import authenticationController from '@controllers/authentication.controller';
+import { isAuthenticated } from '@middleware/authentication.middleware';
 
 const router = Router();
 
@@ -11,7 +11,7 @@ router.get('/google/redirect', passport.authenticate('google', {
     failureRedirect: '/auth/google/failure',
     successRedirect: '/auth/success'    
 }));
-router.get('/success', isLoggedIn, authenticationController.successLogIn);
+router.get('/success', isAuthenticated,  authenticationController.successLogIn);
 router.get('/google/failure', authenticationController.failureLogIn);
-router.get('/logout',authenticationController.logout)
+router.get('/logout', isAuthenticated,authenticationController.logout)
 export default router;
